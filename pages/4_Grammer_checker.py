@@ -1,6 +1,6 @@
 import streamlit as st
 from langchain.chains import LLMChain
-from langchain_community.llms import OpenAI
+from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 import os
 
@@ -11,13 +11,13 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 
 def blog_outline(topic):
     # Instantiate LLM model
-    llm = OpenAI(model_name="gpt-4")
+    llm = ChatOpenAI(model_name="gpt-4")
     # Prompt
     template = """As a seasoned writer and meticulous proofreader, I need your assistance to enhance the quality of my text. 
     Please carefully review the content, identify any grammatical errors, and apply corrections. 
     Pay close attention to proper conventions, punctuation, and tone to ensure the text reads flawlessly and professionally. 
     Your expertise in refining language will greatly contribute to the overall polish and clarity of the writing.\n\n 
-    <my_text>{topic}</my_text>"""
+    CONTENT: {topic}"""
     prompt = PromptTemplate(input_variables=["topic"], template=template)
     prompt_query = prompt.format(topic=topic)
     # Run LLM model
