@@ -1,5 +1,6 @@
 import streamlit as st
-from langchain.llms import OpenAI
+from langchain.chains import LLMChain
+from langchain_community.llms import OpenAI
 from langchain.prompts import PromptTemplate
 import os
 
@@ -10,7 +11,7 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 
 def blog_outline(topic):
     # Instantiate LLM model
-    llm = OpenAI(model_name="gpt-4-1106-preview")
+    llm = OpenAI(model_name="gpt-4")
     # Prompt
     template = """As a skilled writer, create a concise and professional school notice on the topic of {topic} for 'Shemrock Primary Chaitanyapur School.'\n
     Ensure the notice is clear, informative, and suitable for distribution to students, parents, and staff. \
@@ -19,7 +20,8 @@ def blog_outline(topic):
     prompt = PromptTemplate(input_variables=["topic"], template=template)
     prompt_query = prompt.format(topic=topic)
     # Run LLM model
-    response = llm(prompt_query)
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+    response = llm_chain(prompt_query)
     # Print results
     return st.info(response)
 
