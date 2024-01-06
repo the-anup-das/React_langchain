@@ -7,7 +7,7 @@ st.title("🦜 Notice Writter App")
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
 
-def blog_outline(topic):
+def blog_outline(topic,openai_api_key):
     # Instantiate LLM model
     llm = OpenAI(model_name="gpt-4-1106-preview", openai_api_key=openai_api_key)
     # Prompt
@@ -29,4 +29,4 @@ with st.form("myform"):
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
     elif submitted:
-        blog_outline(topic_text)
+        blog_outline(topic_text,openai_api_key)
