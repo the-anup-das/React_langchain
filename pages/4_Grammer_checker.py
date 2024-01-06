@@ -1,15 +1,18 @@
 import streamlit as st
 from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
+import os
 
 st.title("🦜 Fix Grammer in your text")
 
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
+openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
+os.environ["OPENAI_API_KEY"] = openai_api_key
 
-def blog_outline(paragraph, openai_api_key):
+def blog_outline(paragraph):
     # Instantiate LLM model
-    llm = OpenAI(model_name="gpt-4-1106-preview", openai_api_key=openai_api_key)
+    llm = OpenAI(model_name="gpt-4-1106-preview")
     # Prompt
     template = """As a seasoned writer and meticulous proofreader, I need your assistance to enhance the quality of my text. 
     Please carefully review the content, identify any grammatical errors, and apply corrections. 
@@ -30,4 +33,4 @@ with st.form("myform"):
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
     elif submitted:
-        blog_outline(topic_text, openai_api_key)
+        blog_outline(topic_text)
