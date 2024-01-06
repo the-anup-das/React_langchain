@@ -26,8 +26,7 @@ if uploaded_file and question and openai_api_key:
     response = client.chat.completions.create(
         model=selected_model, 
         messages=[
-    {"role": "system", "content": f"You are an assistant, skilled in explaining and answering question from the article Here's an article:\n\n<article>
-    {article}\n\n</article>"},
+    {"role": "system", "content": f"You are an assistant, skilled in explaining and answering question from the article Here's an article:\n\n<article>{article}\n\n</article>"},
     {"role": "user", "content": question}
   ]
         )
