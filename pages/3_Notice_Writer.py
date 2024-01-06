@@ -21,7 +21,7 @@ def blog_outline(topic):
     prompt_query = prompt.format(topic=topic)
     # Run LLM model
     llm_chain = LLMChain(prompt=prompt, llm=llm)
-    response = llm_chain(prompt_query)
+    response = llm_chain.run(prompt_query)
     # Print results
     return st.info(response)
 
